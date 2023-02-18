@@ -1,3 +1,3 @@
-module fanbox.etin.space
+module www.fanbox.space
 
-go 1.19
+go 1.20
