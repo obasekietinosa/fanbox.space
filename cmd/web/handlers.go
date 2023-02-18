@@ -48,7 +48,7 @@ func letterView(w http.ResponseWriter, r *http.Request) {
 }
 
 func letterCreate(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
+	if r.Method == http.MethodPost {
 		w.Header().Set("Allow", http.MethodPost)
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
