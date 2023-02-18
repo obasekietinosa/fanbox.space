@@ -1,5 +1,13 @@
 {{define "nav"}}
-  <nav>
-    <a href="/">Home</a>
-  </nav>
+<div>
+  <a href="/">
+    <img class="h-12" src="/static/logo.png" />
+  </a>
+</div>
+<nav class="space-x-3">
+  <a class="hidden sm:inline" href="/">Home</a>
+  <a class="hidden sm:inline" href="/">Write a letter</a>
+  <a class="hidden sm:inline" href="/">Random</a>
+  <button class="bg-black text-white px-3 md:px-7 py-2">Subscribe</button>
+</nav>
 {{end}}

@@ -1,6 +1,151 @@
-{{define "title"}}Home{{end}}
+{{define "title"}}Home{{end}} {{define "main"}}
 
-{{define "main"}}
-  <h2>Latest</h2>
-  <p>Nothing here yet!</p>
+<section class="bg-black flex justify-center items-center flex-col py-6 mb-12">
+  <div class="mb-6">
+    <img
+      class="h-16"
+      src="/static/logo-full.png"
+      alt="FanBox full width logo"
+    />
+  </div>
+  <div class="mb-6">
+    <form class="flex">
+      <input placeholder="Snoop thru'?" class="bg-white px-2 py-4" />
+      <button class="bg-white w-14 h-14 p-3">
+        <img class="max-w-full h-auto" src="/static/search.svg" alt="Search" />
+      </button>
+    </form>
+  </div>
+  <div class="mb-4 inline-flex flex-wrap justify-center max-w-sm">
+    <a
+      href="/"
+      class="ml-2 first:ml-0 mb-2 hover:bg-sky-200 bg-sky-500 px-2 py-0.5"
+      >Tech</a
+    >
+    <a
+      href="/"
+      class="ml-2 first:ml-0 mb-2 hover:bg-teal-200 bg-teal-500 px-2 py-0.5"
+      >Politics</a
+    >
+    <a
+      href="/"
+      class="ml-2 first:ml-0 mb-2 hover:bg-green-200 bg-green-500 px-2 py-0.5"
+      >Life</a
+    >
+    <a
+      href="/"
+      class="ml-2 first:ml-0 mb-2 hover:bg-red-200 bg-red-500 text-white px-2 py-0.5"
+      >Love</a
+    >
+    <a
+      href="/"
+      class="ml-2 first:ml-0 mb-2 hover:bg-indigo-200 bg-indigo-500 px-2 py-0.5"
+      >Business</a
+    >
+    <a
+      href="/"
+      class="ml-2 first:ml-0 mb-2 hover:bg-blue-200 bg-blue-500 px-2 py-0.5"
+      >Sport</a
+    >
+    <a
+      href="/"
+      class="ml-2 first:ml-0 mb-2 hover:bg-yellow-200 bg-yellow-500 px-2 py-0.5"
+      >Movies</a
+    >
+    <a
+      href="/"
+      class="ml-2 first:ml-0 mb-2 hover:bg-gray-200 bg-gray-500 text-white px-2 py-0.5"
+      >Fiction</a
+    >
+    <a
+      href="/"
+      class="ml-2 first:ml-0 mb-2 hover:bg-orange-200 bg-orange-500 px-2 py-0.5"
+      >Random</a
+    >
+    <a
+      href="/"
+      class="ml-2 first:ml-0 mb-2 hover:bg-gray-200 bg-white px-2 py-0.5"
+      >Real Life</a
+    >
+  </div>
+  <div>
+    <button class="bg-white text-black px-3 md:px-7 py-2">Subscribe Now</button>
+  </div>
+</section>
+<section class="bg-gray-200 border-t-2 border-black py-6 px-6 mb-12">
+  <div class="w-full flex justify-end mb-6">
+    <div
+      class="h-32 w-32 flex justify-center items-center text-center border border-black"
+    >
+      Your stamp here
+    </div>
+  </div>
+  <div class="lg:mx-32">
+    <form action="compose.html">
+      <div>
+        <div class="mb-6 w-full grid grid-cols-8">
+          <label
+            class="col-span-2 lg:col-span-1 block bg-black text-white py-2 px-3"
+            for="from"
+            >From:</label
+          >
+          <input
+            type="text"
+            class="col-span-6 lg:col-span-7 px-3"
+            id="from"
+            name="from"
+            placeholder="John Doe"
+          />
+        </div>
+        <div class="mb-6 w-full grid grid-cols-8">
+          <label
+            class="col-span-2 lg:col-span-1 block bg-black text-white py-2 px-3"
+            for="email"
+            >Email:</label
+          >
+          <input
+            type="text"
+            class="col-span-6 lg:col-span-7 px-3"
+            id="email"
+            name="email"
+            placeholder="john.doe@email.com"
+          />
+        </div>
+        <div class="mb-6 w-full grid grid-cols-8">
+          <label
+            class="col-span-2 lg:col-span-1 block bg-black text-white py-2 px-3"
+            for="to"
+            >To:</label
+          >
+          <input
+            type="text"
+            class="col-span-6 lg:col-span-7 px-3"
+            id="to"
+            name="to"
+            placeholder="Mary J. Doe"
+          />
+        </div>
+      </div>
+      <div class="w-full flex justify-end">
+        <button class="bg-black text-white px-3 md:px-7 py-2">Compose</button>
+      </div>
+    </form>
+  </div>
+</section>
+<section>
+  <h2 class="text-xl lg:text-3xl mb-6">Feed</h2>
+  <div class="border-2 border-black p-6">
+    <div class="font-bold mb-3">Dear John,</div>
+    <div class="mb-3 px-6">
+      Lorem ipsum dolor, sit amet consectetur adipisicing elit. Consectetur
+      excepturi vel perferendis error, incidunt sit quas aspernatur, assumenda
+      vero aut id autem obcaecati iste accusamus, numquam tempora quisquam nam
+      quibusdam?
+    </div>
+    <div class="text-right">
+      <p>Your friend,</p>
+      <p class="font-bold">Etin.</p>
+    </div>
+  </div>
+</section>
 {{end}}

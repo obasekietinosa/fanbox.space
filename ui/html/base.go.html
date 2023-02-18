@@ -1,42 +1,102 @@
 {{define "base"}}
-  <!DOCTYPE html>
-  <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-      <link rel="apple-touch-icon" sizes="57x57" href="/static/apple-icon-57x57.png">
-      <link rel="apple-touch-icon" sizes="60x60" href="/static/apple-icon-60x60.png">
-      <link rel="apple-touch-icon" sizes="72x72" href="/static/apple-icon-72x72.png">
-      <link rel="apple-touch-icon" sizes="76x76" href="/static/apple-icon-76x76.png">
-      <link rel="apple-touch-icon" sizes="114x114" href="/static/apple-icon-114x114.png">
-      <link rel="apple-touch-icon" sizes="120x120" href="/static/apple-icon-120x120.png">
-      <link rel="apple-touch-icon" sizes="144x144" href="/static/apple-icon-144x144.png">
-      <link rel="apple-touch-icon" sizes="152x152" href="/static/apple-icon-152x152.png">
-      <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-icon-180x180.png">
-      <link rel="icon" type="image/png" sizes="192x192"  href="/static/android-icon-192x192.png">
-      <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
-      <link rel="icon" type="image/png" sizes="96x96" href="/static/favicon-96x96.png">
-      <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
-      <link rel="manifest" href="/static/manifest.json">
-      <meta name="msapplication-TileColor" content="#ffffff">
-      <meta name="msapplication-TileImage" content="/static/ms-icon-144x144.png">
-      <meta name="theme-color" content="#ffffff">
+    <link
+      rel="apple-touch-icon"
+      sizes="57x57"
+      href="/static/apple-icon-57x57.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="60x60"
+      href="/static/apple-icon-60x60.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="72x72"
+      href="/static/apple-icon-72x72.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="/static/apple-icon-76x76.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="114x114"
+      href="/static/apple-icon-114x114.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="/static/apple-icon-120x120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="144x144"
+      href="/static/apple-icon-144x144.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="/static/apple-icon-152x152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/static/apple-icon-180x180.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/static/android-icon-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/static/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="96x96"
+      href="/static/favicon-96x96.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/static/favicon-16x16.png"
+    />
+    <link rel="manifest" href="/static/manifest.json" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta
+      name="msapplication-TileImage"
+      content="/static/ms-icon-144x144.png"
+    />
+    <meta name="theme-color" content="#ffffff" />
 
-      <link href="/static/main.css" rel="stylesheet">
+    <link href="/static/main.css" rel="stylesheet" />
 
-      <title>{{template "title" .}} | Fanbox.space</title>
-    </head>
-    <body>
-      <header>
-        <h1 class="text-3xl"><a href="/">Fanbox</a></h1>
-      </header>
-      {{template "nav" .}} 
-      <main>
-        {{template "main" .}}
-      </main>
-      <footer>&copy; 2022 Fanbox</footer>
-    </body>
-  </html>
+    <title>{{template "title" .}} | Fanbox.space</title>
+  </head>
+  <body class="h-full flex flex-col">
+    <header class="flex justify-between items-center py-3 px-4">
+      {{template "nav" .}}
+    </header>
+    <main class="px-3 md:px-7 flex-[1_0_auto]">{{template "main" .}}</main>
+    <footer class="mt-6 bg-black text-white px-3 md:px-7 flex-shrink-0">
+      <section class="py-6 text-center">
+        &copy; 2022 Fanbox. Fanatic about fanmail
+      </section>
+    </footer>
+  </body>
+</html>
 {{end}}

@@ -1,3 +1,9 @@
+@import url(https://fonts.bunny.net/css?family=nunito:300,700,800);
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  font-family: 'Nunito', sans-serif;
+}
