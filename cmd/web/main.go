@@ -7,12 +7,15 @@ import (
 	"net/http"
 	"os"
 
+	"www.fanbox.space/internal/models"
+
 	_ "github.com/go-sql-driver/mysql"
 )
 
 type application struct {
 	errorLog *log.Logger
 	infoLog  *log.Logger
+	letters  *models.LetterModel
 }
 
 func main() {
@@ -33,6 +36,7 @@ func main() {
 	app := &application{
 		errorLog: errorLog,
 		infoLog:  infoLog,
+		letters:  &models.LetterModel{DB: db},
 	}
 
 	srv := &http.Server{
