@@ -1,10 +1,13 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"html/template"
 	"net/http"
 	"strconv"
+
+	"www.fanbox.space/internal/models"
 )
 
 func (app *application) home(w http.ResponseWriter, r *http.Request) {
@@ -25,6 +28,16 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	letters, err := app.letters.Latest(10)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	for _, letter := range letters {
+		app.infoLog.Printf("%+v\n", letter)
+	}
+
 	err = ts.ExecuteTemplate(w, "base", nil)
 	if err != nil {
 		app.serverError(w, err)
@@ -38,13 +51,35 @@ func (app *application) letterView(w http.ResponseWriter, r *http.Request) {
 		app.notFound(w)
 		return
 	}
-	fmt.Fprintf(w, "Viewing a specific letter with ID %d...", id)
+	letter, err := app.letters.Get(id)
+	if err != nil {
+		if errors.Is(err, models.ErrNoRecord) {
+			app.notFound(w)
+			return
+		}
+		app.serverError(w, err)
+		return
+	}
+
+	fmt.Fprintf(w, "Viewing '%s' %d...", letter.Subject, id)
 }
 
 func (app *application) letterCreate(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
-		w.Header().Set("Allow", http.MethodPost)
-		app.clientError(w, http.StatusMethodNotAllowed)
+		email := "etinosa.obaseki@gmail.com"
+		subject := "A test of our love"
+		author := "Etin Obaseki"
+		recipient := "Ebose Osolase"
+		content := "Hello. \nI write this letter to inform you that I have been absolutely smitten by you"
+		salutation := "Your lover"
+
+		id, err := app.letters.Insert(email, subject, author, recipient, content, salutation)
+		if err != nil {
+			app.serverError(w, err)
+			return
+		}
+		http.Redirect(w, r, fmt.Sprintf("/letters/view?id=%d", id), http.StatusSeeOther)
+
 		return
 	}
 	w.Write([]byte("Create a new letter..."))
