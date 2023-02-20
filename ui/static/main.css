@@ -523,6 +523,11 @@ video {
   grid-column: span 6 / span 6;
 }
 
+.mx-3{
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
+}
+
 .mb-12{
   margin-bottom: 3rem;
 }
@@ -800,6 +805,11 @@ video {
   text-align: right;
 }
 
+.text-lg{
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
 .text-xl{
   font-size: 1.25rem;
   line-height: 1.75rem;
@@ -807,6 +817,10 @@ video {
 
 .font-bold{
   font-weight: 700;
+}
+
+.font-semibold{
+  font-weight: 600;
 }
 
 .text-black{
@@ -879,6 +893,11 @@ body {
 }
 
 @media (min-width: 768px){
+  .md\:mx-7{
+    margin-left: 1.75rem;
+    margin-right: 1.75rem;
+  }
+
   .md\:px-7{
     padding-left: 1.75rem;
     padding-right: 1.75rem;
@@ -892,6 +911,11 @@ body {
 
   .lg\:col-span-7{
     grid-column: span 7 / span 7;
+  }
+
+  .lg\:mx-16{
+    margin-left: 4rem;
+    margin-right: 4rem;
   }
 
   .lg\:mx-32{

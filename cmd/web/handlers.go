@@ -51,6 +51,7 @@ func (app *application) letterView(w http.ResponseWriter, r *http.Request) {
 		app.notFound(w)
 		return
 	}
+
 	letter, err := app.letters.Get(id)
 	if err != nil {
 		if errors.Is(err, models.ErrNoRecord) {
@@ -61,7 +62,23 @@ func (app *application) letterView(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprintf(w, "Viewing '%s' %d...", letter.Subject, id)
+	files := []string{
+		"./ui/html/base.go.html",
+		"./ui/html/partials/nav.go.html",
+		"./ui/html/pages/letters/view.go.html",
+	}
+
+	ts, err := template.ParseFiles(files...)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
+
+	err = ts.ExecuteTemplate(w, "base", letter)
+	if err != nil {
+		app.serverError(w, err)
+		return
+	}
 }
 
 func (app *application) letterCreate(w http.ResponseWriter, r *http.Request) {
