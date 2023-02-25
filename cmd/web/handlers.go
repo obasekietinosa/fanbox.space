@@ -28,17 +28,17 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	letters, err := app.letters.Latest(10)
+	letters, err := app.letters.Latest(35)
 	if err != nil {
 		app.serverError(w, err)
 		return
 	}
 
-	for _, letter := range letters {
-		app.infoLog.Printf("%+v\n", letter)
+	data := &templateData{
+		Letters: letters,
 	}
 
-	err = ts.ExecuteTemplate(w, "base", nil)
+	err = ts.ExecuteTemplate(w, "base", data)
 	if err != nil {
 		app.serverError(w, err)
 		return
@@ -74,7 +74,11 @@ func (app *application) letterView(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err = ts.ExecuteTemplate(w, "base", letter)
+	data := &templateData{
+		Letter: letter,
+	}
+
+	err = ts.ExecuteTemplate(w, "base", data)
 	if err != nil {
 		app.serverError(w, err)
 		return

@@ -819,8 +819,8 @@ video {
   font-weight: 700;
 }
 
-.font-semibold{
-  font-weight: 600;
+.italic{
+  font-style: italic;
 }
 
 .text-black{
