@@ -3,28 +3,30 @@ package main
 import (
 	"errors"
 	"fmt"
-	"html/template"
 	"net/http"
 	"strconv"
 
 	"www.fanbox.space/internal/models"
 )
 
-func (app *application) home(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
-		app.notFound(w)
+func (app *application) render(w http.ResponseWriter, status int, page string, data *templateData) {
+	ts, ok := app.templateCache[page]
+	if !ok {
+		err := fmt.Errorf("the template %s does not exist", page)
+		app.serverError(w, err)
 		return
 	}
 
-	files := []string{
-		"./ui/html/base.go.html",
-		"./ui/html/partials/nav.go.html",
-		"./ui/html/pages/home.go.html",
-	}
-
-	ts, err := template.ParseFiles(files...)
+	err := ts.ExecuteTemplate(w, "base", data)
 	if err != nil {
 		app.serverError(w, err)
+		return
+	}
+}
+
+func (app *application) home(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/" {
+		app.notFound(w)
 		return
 	}
 
@@ -34,15 +36,9 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := &templateData{
+	app.render(w, http.StatusOK, "home.go.html", &templateData{
 		Letters: letters,
-	}
-
-	err = ts.ExecuteTemplate(w, "base", data)
-	if err != nil {
-		app.serverError(w, err)
-		return
-	}
+	})
 }
 
 func (app *application) letterView(w http.ResponseWriter, r *http.Request) {
@@ -62,27 +58,9 @@ func (app *application) letterView(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	files := []string{
-		"./ui/html/base.go.html",
-		"./ui/html/partials/nav.go.html",
-		"./ui/html/pages/letters/view.go.html",
-	}
-
-	ts, err := template.ParseFiles(files...)
-	if err != nil {
-		app.serverError(w, err)
-		return
-	}
-
-	data := &templateData{
+	app.render(w, http.StatusOK, "view.go.html", &templateData{
 		Letter: letter,
-	}
-
-	err = ts.ExecuteTemplate(w, "base", data)
-	if err != nil {
-		app.serverError(w, err)
-		return
-	}
+	})
 }
 
 func (app *application) letterCreate(w http.ResponseWriter, r *http.Request) {
