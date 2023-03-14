@@ -42,9 +42,10 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	app.render(w, http.StatusOK, "home.go.html", &templateData{
-		Letters: letters,
-	})
+	data := app.newTemplateData(r)
+	data.Letters = letters
+
+	app.render(w, http.StatusOK, "home.go.html", data)
 }
 
 func (app *application) letterView(w http.ResponseWriter, r *http.Request) {
@@ -64,9 +65,10 @@ func (app *application) letterView(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	app.render(w, http.StatusOK, "view.go.html", &templateData{
-		Letter: letter,
-	})
+	data := app.newTemplateData(r)
+	data.Letter = letter
+
+	app.render(w, http.StatusOK, "view.go.html", data)
 }
 
 func (app *application) letterCreate(w http.ResponseWriter, r *http.Request) {
