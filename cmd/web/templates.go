@@ -3,6 +3,7 @@ package main
 import (
 	"html/template"
 	"path/filepath"
+	"time"
 
 	"www.fanbox.space/internal/models"
 )
@@ -11,6 +12,14 @@ type templateData struct {
 	CurrentYear int
 	Letter      *models.Letter
 	Letters     []*models.Letter
+}
+
+func readableDate(t time.Time) string {
+	return t.Format("02 Jan 2006 at 15:04")
+}
+
+var functions = template.FuncMap{
+	"readableDate": readableDate,
 }
 
 func newTemplateCache() (map[string]*template.Template, error) {
@@ -23,7 +32,7 @@ func newTemplateCache() (map[string]*template.Template, error) {
 	for _, page := range pages {
 		name := filepath.Base(page)
 
-		ts, err := template.ParseFiles("./ui/html/base.go.html")
+		ts, err := template.New(name).Funcs(functions).ParseFiles("./ui/html/base.go.html")
 		if err != nil {
 			return nil, err
 		}
