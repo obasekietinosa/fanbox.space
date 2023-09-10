@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/julienschmidt/httprouter"
 	"www.fanbox.space/internal/models"
 )
 
@@ -31,11 +32,6 @@ func (app *application) render(w http.ResponseWriter, status int, page string, d
 }
 
 func (app *application) home(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
-		app.notFound(w)
-		return
-	}
-
 	letters, err := app.letters.Latest(35)
 	if err != nil {
 		app.serverError(w, err)
@@ -49,7 +45,8 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) letterView(w http.ResponseWriter, r *http.Request) {
-	id, err := strconv.Atoi(r.URL.Query().Get("id"))
+	params := httprouter.ParamsFromContext(r.Context())
+	id, err := strconv.Atoi(params.ByName("id"))
 	if err != nil || id < 1 {
 		app.notFound(w)
 		return
@@ -72,22 +69,29 @@ func (app *application) letterView(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) letterCreate(w http.ResponseWriter, r *http.Request) {
-	if r.Method == http.MethodPost {
-		email := "etinosa.obaseki@gmail.com"
-		subject := "A test of our love"
-		author := "Etin Obaseki"
-		recipient := "Ebose Osolase"
-		content := "Hello. \nI write this letter to inform you that I have been absolutely smitten by you"
-		salutation := "Your lover"
+	from := r.URL.Query().Get("from")
+	to := r.URL.Query().Get("to")
+	email := r.URL.Query().Get("email")
 
-		id, err := app.letters.Insert(email, subject, author, recipient, content, salutation)
-		if err != nil {
-			app.serverError(w, err)
-			return
-		}
-		http.Redirect(w, r, fmt.Sprintf("/letters/view?id=%d", id), http.StatusSeeOther)
+	if (len(from) == 0) || (len(to) == 0) || (len(email) == 0) {
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+	}
 
+	w.Write([]byte("Create a new letter..."))
+}
+
+func (app *application) letterCreatePost(w http.ResponseWriter, r *http.Request) {
+	email := "etinosa.obaseki@gmail.com"
+	subject := "A test of our love"
+	author := "Etin Obaseki"
+	recipient := "Ebose Osolase"
+	content := "Hello. \nI write this letter to inform you that I have been absolutely smitten by you"
+	salutation := "Your lover"
+
+	id, err := app.letters.Insert(email, subject, author, recipient, content, salutation)
+	if err != nil {
+		app.serverError(w, err)
 		return
 	}
-	w.Write([]byte("Create a new letter..."))
+	http.Redirect(w, r, fmt.Sprintf("/letters/view/%d", id), http.StatusSeeOther)
 }
