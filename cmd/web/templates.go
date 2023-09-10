@@ -8,10 +8,17 @@ import (
 	"www.fanbox.space/internal/models"
 )
 
+type composeData struct {
+	From  string
+	To    string
+	Email string
+}
+
 type templateData struct {
 	CurrentYear int
 	Letter      *models.Letter
 	Letters     []*models.Letter
+	Compose     composeData
 }
 
 func readableDate(t time.Time) string {

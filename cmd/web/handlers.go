@@ -77,7 +77,14 @@ func (app *application) letterCreate(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 	}
 
-	w.Write([]byte("Create a new letter..."))
+	data := app.newTemplateData(r)
+	data.Compose = composeData{
+		From:  from,
+		To:    to,
+		Email: email,
+	}
+
+	app.render(w, http.StatusOK, "compose.go.html", data)
 }
 
 func (app *application) letterCreatePost(w http.ResponseWriter, r *http.Request) {

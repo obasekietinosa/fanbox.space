@@ -1,0 +1,56 @@
+{{define "title"}}Compose{{end}} 
+{{define "main"}}
+<section class="bg-white border-t-2 border-black py-6 px-6 mb-12">
+  <div class="w-full flex justify-end mb-6">
+    <div
+      class="h-32 w-32 flex justify-center items-center text-center border border-black"
+    >
+      Your stamp here
+    </div>
+  </div>
+  <div class="lg:mx-32">
+    <form method="post" action="compose">
+      <div>
+        <div class="mb-6 w-full">
+          <div>
+            <div>Dear {{.Compose.To}}</div>
+            <input
+              aria-hidden="true"
+              type="text"
+              class="hidden"
+              id="to"
+              name="to"
+              value="{{.Compose.To}}"
+            />
+          </div>
+          <div>
+            <input class="border-none w-full p-3 text-center mb-3" type="text" id="subject" name="subject" placeholder="Your subject here" />
+            <div class="auto-grow-textarea-wrapper">
+              <textarea id="content" name="content"></textarea>
+            </div>
+          </div>
+          <div class="flex justify-end">
+            <p>Yours sincerely,</p>
+            <div>{{.Compose.From}}</div>
+            <input
+              aria-hidden="true"
+              type="text"
+              class="hidden"
+              id="from"
+              name="from"
+              value="{{.Compose.From}}"
+            />
+          </div>
+        </div>
+        
+      </div>
+      <div class="w-full flex justify-end">
+        <button class="bg-black text-white px-3 md:px-7 py-2">Send</button>
+      </div>
+    </form>
+  </div>
+</section>
+{{end}}
+{{define "scripts"}}
+<script src="/static/compose.js"></script>
+{{end}}
