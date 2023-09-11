@@ -15,12 +15,12 @@ jobs:
 
       - name: Build Fanbox Web
         run: cd cmd/web && go build -o build/web
-        
+
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          ftp-server: ftp://ftp-etin.alwaysdata.net
-          ftp-username: etin_fanbox
-          ftp-password: ${{ secrets.FTP_PASSWORD }}
+          server: ftp://ftp-etin.alwaysdata.net
+          username: etin_fanbox
+          password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./cmd/web/build/
           server-dir: ./fanbox.space
