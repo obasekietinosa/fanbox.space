@@ -23,4 +23,4 @@ jobs:
           username: etin_fanbox
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./cmd/web/build/
-          server-dir: ./fanbox.space
+          server-dir: ./fanbox.space/
