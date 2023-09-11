@@ -88,12 +88,17 @@ func (app *application) letterCreate(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) letterCreatePost(w http.ResponseWriter, r *http.Request) {
-	email := "etinosa.obaseki@gmail.com"
-	subject := "A test of our love"
-	author := "Etin Obaseki"
-	recipient := "Ebose Osolase"
-	content := "Hello. \nI write this letter to inform you that I have been absolutely smitten by you"
-	salutation := "Your lover"
+	err := r.ParseForm()
+	if err != nil {
+		app.serverError(w, err)
+	}
+
+	email := r.PostForm.Get("email")
+	subject := r.PostForm.Get("subject")
+	author := r.PostForm.Get("from")
+	recipient := r.PostForm.Get("to")
+	content := r.PostForm.Get("content")
+	salutation := "Yours sincerely"
 
 	id, err := app.letters.Insert(email, subject, author, recipient, content, salutation)
 	if err != nil {

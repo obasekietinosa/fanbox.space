@@ -683,6 +683,10 @@ video {
   margin-left: calc(0.75rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
+.whitespace-pre-line{
+  white-space: pre-line;
+}
+
 .border{
   border-width: 1px;
 }
