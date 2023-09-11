@@ -3,7 +3,7 @@
   <div class="border-2 border-black p-6 mb-4">
     <div class="italic">{{.Created | readableDate}}</div>
     <div class="font-bold mb-3">Dear {{.Recipient}},</div>
-    <div class="mb-3 px-6">{{.Content}}</div>
+    <div class="mb-3 px-6">{{truncateText .Content 300}}</div>
     <div class="text-right">
       <p>{{.Salutation}},</p>
       <p class="font-bold">Etin.</p>

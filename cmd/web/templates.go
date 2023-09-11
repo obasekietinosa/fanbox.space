@@ -4,6 +4,7 @@ import (
 	"html/template"
 	"io/fs"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"www.fanbox.space/internal/models"
@@ -27,8 +28,16 @@ func readableDate(t time.Time) string {
 	return t.Format("02 Jan 2006 at 15:04")
 }
 
+func truncateText(text string, maxLength int) string {
+	if maxLength > len(text) {
+		return text
+	}
+	return text[:strings.LastIndex(text[:maxLength], " ")] + "..."
+}
+
 var functions = template.FuncMap{
 	"readableDate": readableDate,
+	"truncateText": truncateText,
 }
 
 func newTemplateCache() (map[string]*template.Template, error) {
