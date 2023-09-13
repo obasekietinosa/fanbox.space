@@ -8,6 +8,12 @@ jobs:
     steps: 
       - uses: actions/checkout@v3
 
+      - name: Build static assets
+        uses: actions/setup-node@v3
+        with: 
+          node-version: 18
+        run: cd ui && npm run build
+
       - name: Set up Go
         uses: actions/setup-go@v4
         with:
