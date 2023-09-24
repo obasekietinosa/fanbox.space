@@ -24,11 +24,12 @@ jobs:
       - name: Build Fanbox Web
         run: cd cmd/web && CGO_ENABLED=0 go build -o build/web
 
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      - name: Deploy via SSH
+        uses: SamKirkland/web-deploy@v1
         with:
-          server: ftp-etin.alwaysdata.net
-          username: etin_fanbox
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./cmd/web/build/
-          server-dir: ./fanbox.space/
+          target-server: ssh-etin.alwaysdata.net
+          remote-user: etin_fanbox
+          private-ssh-key: ${{ secrets.SSH_KEY }}
+          source-path: ./cmd/web/build/
+          destination-path: ./fanbox.space/
+          rsync-options: --chmod=+X
