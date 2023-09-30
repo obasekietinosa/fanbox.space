@@ -13,7 +13,7 @@
       <div>
         <div class="mb-6 w-full">
           <div>
-            <div>Dear {{.Compose.To}}</div>
+            <div>Dear {{.Compose.To}},</div>
             <input
               aria-hidden="true"
               type="text"
@@ -24,9 +24,9 @@
             />
           </div>
           <div>
-            <input class="border-none w-full p-3 text-center mb-3" type="text" id="subject" name="subject" placeholder="Your subject here" />
+            <input class="border-none w-full p-3 text-center mb-3 font-semibold text-2xl" type="text" id="subject" name="subject" placeholder="Your subject here" />
             <div class="auto-grow-textarea-wrapper">
-              <textarea id="content" name="content"></textarea>
+              <textarea id="content" name="content" placeholder="Your letter here..."></textarea>
             </div>
           </div>
           <div class="flex justify-end">
