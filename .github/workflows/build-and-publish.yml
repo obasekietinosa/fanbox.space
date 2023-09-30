@@ -32,4 +32,4 @@ jobs:
           private-ssh-key: ${{ secrets.SSH_KEY }}
           source-path: ./cmd/web/build/
           destination-path: ./fanbox.space/
-          rsync-options: --chmod=+X
+          rsync-options: --chmod=+X -a
