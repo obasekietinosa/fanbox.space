@@ -80,9 +80,10 @@ func (app *application) letterCreate(w http.ResponseWriter, r *http.Request) {
 
 	data := app.newTemplateData(r)
 	data.Compose = composeData{
-		From:  from,
-		To:    to,
-		Email: email,
+		From:       from,
+		To:         to,
+		Email:      email,
+		Salutation: "Yours sincerely",
 	}
 
 	app.render(w, http.StatusOK, "compose.go.html", data)
@@ -108,6 +109,7 @@ func (app *application) letterCreatePost(w http.ResponseWriter, r *http.Request)
 	form.Validator.CheckField(validator.NotBlank(form.From), "from", "Your letter must have a sender")
 	form.Validator.CheckField(validator.NotBlank(form.To), "to", "Your letter must have a recipient")
 	form.Validator.CheckField(validator.NotBlank(form.Content), "content", "Enter the content of your letter")
+	form.Validator.CheckField(validator.NotBlank(form.Salutation), "salutation", "Your letter must have a salutation")
 
 	if !form.Validator.Valid() {
 		data := app.newTemplateData(r)
