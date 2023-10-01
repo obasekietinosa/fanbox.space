@@ -8,13 +8,18 @@ import (
 	"time"
 
 	"www.fanbox.space/internal/models"
+	"www.fanbox.space/internal/validator"
 	"www.fanbox.space/ui"
 )
 
 type composeData struct {
-	From  string
-	To    string
-	Email string
+	From       string
+	To         string
+	Email      string
+	Subject    string
+	Content    string
+	Salutation string
+	validator.Validator
 }
 
 type templateData struct {

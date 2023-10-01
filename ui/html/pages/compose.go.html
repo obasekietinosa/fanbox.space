@@ -1,5 +1,4 @@
-{{define "title"}}Compose{{end}} 
-{{define "main"}}
+{{define "title"}}Compose{{end}} {{define "main"}}
 <section class="bg-white border-t-2 border-black py-6 px-6 mb-12">
   <div class="w-full flex justify-end mb-6">
     <div
@@ -24,10 +23,35 @@
             />
           </div>
           <div>
-            <input class="border-none w-full p-3 text-center mb-3 font-semibold text-2xl" type="text" id="subject" name="subject" placeholder="Your subject here" />
-            <div class="auto-grow-textarea-wrapper">
-              <textarea id="content" name="content" placeholder="Your letter here..."></textarea>
+            <div class="mb-3">
+              <input
+                class="w-full p-3 text-center font-semibold text-2xl {{if .Compose.FieldErrors.subject}}border-red-400 border-solid border-2{{else}}border-none{{end}}"
+                type="text"
+                id="subject"
+                name="subject"
+                placeholder="Your subject here"
+                value="{{.Compose.Subject}}"
+              />
+              <p class="text-red-500 text-center font-semibold">
+                {{.Compose.FieldErrors.subject}}
+              </p>
             </div>
+            <div>
+              <div
+                class="auto-grow-textarea-wrapper {{if .Compose.FieldErrors.content}}border-red-400 border-solid border-2{{else}}border-none{{end}}"
+              >
+                <textarea
+                  id="content"
+                  name="content"
+                  placeholder="Your letter here..."
+                  value=""
+                  {{.Compose.Content}}
+                ></textarea>
+              </div>
+            </div>
+            <p class="text-red-500 font-semibold">
+              {{.Compose.FieldErrors.content}}
+            </p>
           </div>
           <div class="flex justify-end">
             <p>Yours sincerely,</p>
@@ -40,9 +64,16 @@
               name="from"
               value="{{.Compose.From}}"
             />
+            <input
+              aria-hidden="true"
+              type="text"
+              class="hidden"
+              id="email"
+              name="email"
+              value="{{.Compose.Email}}"
+            />
           </div>
         </div>
-        
       </div>
       <div class="w-full flex justify-end">
         <button class="bg-black text-white px-3 md:px-7 py-2">Send</button>
@@ -50,7 +81,6 @@
     </form>
   </div>
 </section>
-{{end}}
-{{define "scripts"}}
+{{end}} {{define "scripts"}}
 <script src="/static/compose.js"></script>
 {{end}}

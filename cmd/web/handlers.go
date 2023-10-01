@@ -9,6 +9,7 @@ import (
 
 	"github.com/julienschmidt/httprouter"
 	"www.fanbox.space/internal/models"
+	"www.fanbox.space/internal/validator"
 )
 
 func (app *application) render(w http.ResponseWriter, status int, page string, data *templateData) {
@@ -93,14 +94,29 @@ func (app *application) letterCreatePost(w http.ResponseWriter, r *http.Request)
 		app.serverError(w, err)
 	}
 
-	email := r.PostForm.Get("email")
-	subject := r.PostForm.Get("subject")
-	author := r.PostForm.Get("from")
-	recipient := r.PostForm.Get("to")
-	content := r.PostForm.Get("content")
-	salutation := "Yours sincerely"
+	form := composeData{
+		Email:      r.PostForm.Get("email"),
+		Subject:    r.PostForm.Get("subject"),
+		From:       r.PostForm.Get("from"),
+		To:         r.PostForm.Get("to"),
+		Content:    r.PostForm.Get("content"),
+		Salutation: "Yours sincerely",
+	}
 
-	id, err := app.letters.Insert(email, subject, author, recipient, content, salutation)
+	form.Validator.CheckField(validator.Email(form.Email), "email", "Enter a valid email address")
+	form.Validator.CheckField(validator.NotBlank(form.Subject), "subject", "Enter a subject for your letter")
+	form.Validator.CheckField(validator.NotBlank(form.From), "from", "Your letter must have a sender")
+	form.Validator.CheckField(validator.NotBlank(form.To), "to", "Your letter must have a recipient")
+	form.Validator.CheckField(validator.NotBlank(form.Content), "content", "Enter the content of your letter")
+
+	if !form.Validator.Valid() {
+		data := app.newTemplateData(r)
+		data.Compose = form
+		app.render(w, http.StatusUnprocessableEntity, "compose.go.html", data)
+		return
+	}
+
+	id, err := app.letters.Insert(form.Email, form.Subject, form.From, form.To, form.Content, form.Salutation)
 	if err != nil {
 		app.serverError(w, err)
 		return
