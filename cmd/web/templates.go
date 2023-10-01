@@ -13,13 +13,13 @@ import (
 )
 
 type composeData struct {
-	From       string
-	To         string
-	Email      string
-	Subject    string
-	Content    string
-	Salutation string
-	validator.Validator
+	From                string `form:"from"`
+	To                  string `form:"to"`
+	Email               string `form:"email"`
+	Subject             string `form:"subject"`
+	Content             string `form:"content"`
+	Salutation          string `form:"salutation"`
+	validator.Validator `form:"-"`
 }
 
 type templateData struct {

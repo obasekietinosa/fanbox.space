@@ -90,18 +90,11 @@ func (app *application) letterCreate(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *application) letterCreatePost(w http.ResponseWriter, r *http.Request) {
-	err := r.ParseForm()
+	var form composeData
+	err := app.decodePostForm(r, &form)
 	if err != nil {
-		app.serverError(w, err)
-	}
-
-	form := composeData{
-		Email:      r.PostForm.Get("email"),
-		Subject:    r.PostForm.Get("subject"),
-		From:       r.PostForm.Get("from"),
-		To:         r.PostForm.Get("to"),
-		Content:    r.PostForm.Get("content"),
-		Salutation: "Yours sincerely",
+		app.clientError(w, http.StatusBadRequest)
+		return
 	}
 
 	form.Validator.CheckField(validator.Email(form.Email), "email", "Enter a valid email address")
